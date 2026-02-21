@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class StageManager : MonoBehaviour {
-    public List<Stage> stages;
-    Stage currentStage => this.currentStageIndex == -1 ? null : this.stages[this.currentStageIndex];
+    public List<StageTileMap> stages;
+    StageTileMap currentStage => this.currentStageIndex == -1 ? null : this.stages[this.currentStageIndex];
     public int currentStageIndex;
 
     [SerializeField] private Door _northDoor;
@@ -30,11 +31,17 @@ public class StageManager : MonoBehaviour {
             door.OnDoorEntered += this.HandleDoorEntered;
         }
 
+        RandomizeSolution();
+    }
+
+    private void RandomizeSolution()
+    {
         this.solution = new Direction[this.solutionCount];
-        for (int i = 0; i < this.solutionCount; i++) {
-            this.solution[i] = (Direction)Random.Range(0, 4);
+        for (int i = 0; i < this.solutionCount; i++)
+        {
+            this.solution[i] = (Direction)UnityEngine.Random.Range(0, 4);
+            Debug.Log(SceneManager.GetActiveScene().name + ": solution[" + i + "]=" + solution[i]);
         }
-        Debug.Log(SceneManager.GetActiveScene().name + ": solution=" + this.solution);
     }
 
     // Cleans up the event listeners
@@ -55,12 +62,8 @@ public class StageManager : MonoBehaviour {
     }
 
     private void ChangeStageTo(int nextStageIndex, Direction startDirection) {
-        // Disable all stages but the next
+        // Invoke, for the children
         if (this.currentStageIndex != nextStageIndex) {
-            //foreach (Stage stage in this.stages) {
-            //    stage.enabled = false;
-            //}
-            //nextStage.enabled = true;
             this.OnStageChanged?.Invoke(nextStageIndex);
         }
 
@@ -75,30 +78,25 @@ public class StageManager : MonoBehaviour {
      */
     private void HandleDoorEntered(Door enteredDoor) {
         Debug.Log("Entered Door '" + enteredDoor.name + "'");
-
-        // TODO: what do if at max stage?
-
-        // if newly entering scene, currentStageIndex is -1
-        if (this.currentStageIndex > -1 && enteredDoor.direction == this.solution[this.currentStageIndex]) {
+        bool withinSolution = -1 < this.currentStageIndex && this.currentStageIndex < this.solutionCount;
+        if (withinSolution && enteredDoor.direction == this.solution[this.currentStageIndex]) {
             // correct direction
             ++this.currentStageIndex;
         } else {
             // reset if wrong
             this.currentStageIndex = 0;
         }
-        this.ChangeStageTo(this.stages[this.currentStageIndex], GlobalManager.GetOppositeDirection(enteredDoor.direction));
+        this.ChangeStageTo(this.currentStageIndex, GlobalManager.GetOppositeDirection(enteredDoor.direction));
     }
 
     private Vector2 getEntranceOffset(Direction spawnAt) {
         Door door = this._doors[spawnAt];
         Vector2 entrancePoint = door.entrance;
 
-        SpriteRenderer playerRenderer = GlobalManager.player.GetComponent<SpriteRenderer>();
-
         BoxCollider2D playerCollider = GlobalManager.player.GetComponent<BoxCollider2D>();
 
         Vector2 playerCenter = GlobalManager.player.transform.localPosition;
-        Bounds footBounds = playerCollider.bounds;
+        Bounds footBounds = GlobalManager.player.colliderBounds;
         Debug.Log("Player Center: " + playerCenter);
         Debug.Log("Foot Bounds: " + footBounds);
 

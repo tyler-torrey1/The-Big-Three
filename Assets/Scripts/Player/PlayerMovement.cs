@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private Animator animator;
     private Rigidbody2D _rb;
+    new private BoxCollider2D collider;
+    public Bounds colliderBounds => collider.bounds;
 
     // 'Cache' for storing user input
     [SerializeField]
@@ -19,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Start(){
-        this._rb.useFullKinematicContacts = true;
+        collider = GetComponent<BoxCollider2D>();
     }
 
     void Update()

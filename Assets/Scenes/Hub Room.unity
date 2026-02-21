@@ -3219,7 +3219,6 @@ MonoBehaviour:
   sceneNames:
   - Hub Room
   - Living Room
-  - Bedroom
   - Kitchen
 --- !u!114 &642175464
 MonoBehaviour:

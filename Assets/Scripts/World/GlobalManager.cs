@@ -32,6 +32,8 @@ public class GlobalManager : MonoBehaviour {
 
     private void Start()
     {
+        // 
+
         // get corresponding StageManager per unity scene
         stageManagers = new Dictionary<string, StageManager>();
         foreach (string sceneName in sceneNames)
