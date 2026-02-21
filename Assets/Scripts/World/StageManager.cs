@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StageManager : MonoBehaviour
 {
@@ -80,24 +81,32 @@ public class StageManager : MonoBehaviour
         Vector2 entrancePoint = oppositeDoor.entrance;
 
         SpriteRenderer playerRenderer = this.player.GetComponent<SpriteRenderer>();
+        BoxCollider2D playerCollider = this.player.GetComponent<BoxCollider2D>();
+
+        Vector2 playerCenter = this.player.transform.localPosition;
+        Bounds footBounds = playerCollider.bounds;
+        Debug.Log("Player Center: " + playerCenter);
+        Debug.Log("Foot Bounds: " + footBounds);
+
+        float padding = 0.2f;
+
         switch (oppositeDoor.direction) {
             case Direction.North:
-                // This is hacky. I actually no idea what position on the player object drives this, but I'm manually adjusting where he lands when he lands north, so he's closer to the door.
-                // Logically, this should be a subtraction, but I don't know anything anymore at all
-                entrancePoint.y += 1f;
+                // We did it :)
+                entrancePoint.y += playerCenter.y - footBounds.min.y - padding;
                 break;
 
             case Direction.South:
-                // This is the dumbest fucking shit
-                entrancePoint.y += playerRenderer.size.y / 6f;
+                // This is the dumbest fucking shit AND WE "SOLVED" IT
+                entrancePoint.y += playerCenter.y - footBounds.max.y + padding;
                 break;
 
             case Direction.East:
-                entrancePoint.x -= playerRenderer.size.x / 8f;
+                entrancePoint.x -= playerCenter.x - footBounds.center.x + padding;
                 break;
 
             case Direction.West:
-                entrancePoint.x += playerRenderer.size.x / 8f;
+                entrancePoint.x += playerCenter.x - footBounds.center.x + padding;
                 break;
         }
         return entrancePoint;
