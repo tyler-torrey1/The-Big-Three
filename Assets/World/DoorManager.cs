@@ -11,8 +11,6 @@ public class DoorManager : MonoBehaviour {
     [SerializeField] private Door _westDoor;
 
     private Dictionary<Direction, Door> _doors;
-    private Dictionary<Direction, Direction> _oppositeDir;
-
     private void Start() {
         this._doors = new Dictionary<Direction, Door>();
         if (this._northDoor != null) { this._doors[Direction.North] = this._northDoor; }
@@ -20,19 +18,13 @@ public class DoorManager : MonoBehaviour {
         if (this._eastDoor != null) { this._doors[Direction.East] = this._eastDoor; }
         if (this._westDoor != null) { this._doors[Direction.West] = this._westDoor; }
 
-        this._oppositeDir = new Dictionary<Direction, Direction> {
-            [Direction.North] = Direction.South,
-            [Direction.South] = Direction.North,
-            [Direction.East] = Direction.West,
-            [Direction.West] = Direction.East
-        };
-
         foreach (Door door in this._doors.Values) {
             Debug.Log("Setting door: " + door.name);
             door.OnDoorEntered += this.HandleDoorEntered;
         }
     }
 
+    // Cleans up the event listeners
     private void OnDestroy() {
         if (this._doors != null) {
             foreach (Door door in this._doors.Values) {
@@ -41,34 +33,50 @@ public class DoorManager : MonoBehaviour {
         }
     }
 
-    private void HandleDoorEntered(Door door) {
-        Transform playerTransform = this.player.GetComponent<Transform>();
+    private void HandleDoorEntered(Door enteredDoor) {
+        Vector2 spawnPos = this.getEntranceOffset(enteredDoor);
 
-        Door oppositeDoor = this._doors[this._oppositeDir[door.direction]];
-        Vector2 spawnPos = oppositeDoor.entrance;
+        Vector3 vector3SpawnPos = new(spawnPos.x, spawnPos.y, -5);
+        this.player.transform.position = spawnPos;
+    }
 
-        // Does this really need to be this complicated? Whatever, I want to go to bed
+    private Vector2 getEntranceOffset(Door enteredDoor) {
+        Dictionary<Direction, Direction> oppositeDirs = new() {
+            [Direction.North] = Direction.South,
+            [Direction.South] = Direction.North,
+            [Direction.East] = Direction.West,
+            [Direction.West] = Direction.East
+        };
+        Debug.Log("EnteredDoor Name: " + enteredDoor.name);
+        Debug.Log("EnteredDoor Direction: " + enteredDoor.direction);
+        Door oppositeDoor = this._doors[oppositeDirs[enteredDoor.direction]];
+        Vector2 entrancePoint = oppositeDoor.entrance;
+
+        SpriteRenderer playerRenderer = this.player.GetComponent<SpriteRenderer>();
+        Debug.Log("Opposite door: " + oppositeDoor.name);
+        Debug.Log("Opposite door entrance: " + oppositeDoor.entrance);
+        Debug.Log("Player Renderer height: " + playerRenderer.size.y);
         switch (oppositeDoor.direction) {
             case Direction.North:
-                spawnPos += Vector2.down * (playerTransform.lossyScale / 2);
+                // This is hacky. I actually no idea what position on the player object drives this, but I'm manually adjusting where he lands when he lands north, so he's closer to the door.
+                // Logically, this should be a subtraction, but I don't know anything anymore at all
+                entrancePoint.y += 1f;
                 break;
 
             case Direction.South:
                 // This is the dumbest fucking shit
-                spawnPos += (Vector2.up * (playerTransform.lossyScale / 2)) + (Vector2.up * .75f);
+                entrancePoint.y += playerRenderer.size.y / 1.5f;
                 break;
 
             case Direction.East:
-                spawnPos += Vector2.left * (playerTransform.lossyScale / 2);
+                entrancePoint.x -= playerRenderer.size.x / 2f;
                 break;
 
             case Direction.West:
-                spawnPos += Vector2.right * (playerTransform.lossyScale / 2);
+                entrancePoint.x += playerRenderer.size.x / 2f;
                 break;
         }
-        // Fucking fuck
-        Vector3 vector3SpawnPos = new(spawnPos.x, spawnPos.y, -5);
-        this.player.transform.position = spawnPos;
+        return entrancePoint;
     }
     public void OnDrawGizmos() {
         Gizmos.color = Color.blue;
