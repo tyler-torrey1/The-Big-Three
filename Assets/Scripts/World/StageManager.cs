@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class StageManager : MonoBehaviour
-{
+public class StageManager : MonoBehaviour {
     public List<Stage> stages;
-    Stage currentStage => currentStageIndex == -1 ? null : stages[currentStageIndex];
+    Stage currentStage => this.currentStageIndex == -1 ? null : this.stages[this.currentStageIndex];
     public int currentStageIndex;
 
     [SerializeField] private Door _northDoor;
@@ -14,6 +14,8 @@ public class StageManager : MonoBehaviour
 
     Direction[] solution;
     int solutionCount = 3;
+
+    public event Action<int> OnStageChanged;
 
     private Dictionary<Direction, Door> _doors;
     private void Start() {
@@ -28,12 +30,11 @@ public class StageManager : MonoBehaviour
             door.OnDoorEntered += this.HandleDoorEntered;
         }
 
-        solution = new Direction[solutionCount];
-        for (int i = 0; i < solutionCount; i++)
-        {
-            solution[i] = (Direction) Random.Range(0, 4);
+        this.solution = new Direction[this.solutionCount];
+        for (int i = 0; i < this.solutionCount; i++) {
+            this.solution[i] = (Direction)Random.Range(0, 4);
         }
-        Debug.Log(SceneManager.GetActiveScene().name + ": solution=" + solution);
+        Debug.Log(SceneManager.GetActiveScene().name + ": solution=" + this.solution);
     }
 
     // Cleans up the event listeners
@@ -48,22 +49,19 @@ public class StageManager : MonoBehaviour
     /**
      * Enter first stage of this scene
      */
-    public void EnterScene(Direction fromDirection)
-    {
-        currentStageIndex = -1;
-        ChangeStageTo(stages[0], fromDirection);
+    public void EnterScene(Direction fromDirection) {
+        this.currentStageIndex = -1;
+        this.ChangeStageTo(0, fromDirection);
     }
 
-    private void ChangeStageTo(Stage nextStage, Direction startDirection)
-    {
+    private void ChangeStageTo(int nextStageIndex, Direction startDirection) {
         // Disable all stages but the next
-        if (currentStage != nextStage)
-        {
-            foreach (Stage stage in stages)
-            {
-                stage.enabled = false;
-            }
-            nextStage.enabled = true;
+        if (this.currentStageIndex != nextStageIndex) {
+            //foreach (Stage stage in this.stages) {
+            //    stage.enabled = false;
+            //}
+            //nextStage.enabled = true;
+            this.OnStageChanged?.Invoke(nextStageIndex);
         }
 
         // Move player to the corresponding entrance
@@ -75,29 +73,23 @@ public class StageManager : MonoBehaviour
     /**
      * Leaving the door via given door.
      */
-    private void HandleDoorEntered(Door enteredDoor)
-    {
+    private void HandleDoorEntered(Door enteredDoor) {
         Debug.Log("Entered Door '" + enteredDoor.name + "'");
 
         // TODO: what do if at max stage?
 
         // if newly entering scene, currentStageIndex is -1
-        if (currentStageIndex > -1 && enteredDoor.direction == solution[currentStageIndex])
-        {
+        if (this.currentStageIndex > -1 && enteredDoor.direction == this.solution[this.currentStageIndex]) {
             // correct direction
-            ++currentStageIndex;
-        }
-        else
-        {
+            ++this.currentStageIndex;
+        } else {
             // reset if wrong
-            currentStageIndex = 0;
+            this.currentStageIndex = 0;
         }
-        ChangeStageTo(stages[currentStageIndex], GlobalManager.GetOppositeDirection(enteredDoor.direction));
-
+        this.ChangeStageTo(this.stages[this.currentStageIndex], GlobalManager.GetOppositeDirection(enteredDoor.direction));
     }
 
-    private Vector2 getEntranceOffset(Direction spawnAt)
-    {
+    private Vector2 getEntranceOffset(Direction spawnAt) {
         Door door = this._doors[spawnAt];
         Vector2 entrancePoint = door.entrance;
 

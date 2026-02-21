@@ -6,6 +6,8 @@ public class StageableRoomObject : MonoBehaviour {
     [SerializeField]
     private List<Sprite> _sprites;
 
+    private StageManager _stageManager;
+
     public bool IsActive = false;
 
     [SerializeField]
@@ -24,6 +26,10 @@ public class StageableRoomObject : MonoBehaviour {
     void Awake() {
         this._currentStageIndex = this._maxStages;
         this._spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this._stageManager = this.GetComponent<StageManager>();
+
+        this._stageManager.OnStageChanged += this.SetCurrentStage;
+
         this.SetCurrentStage(0);
     }
 
