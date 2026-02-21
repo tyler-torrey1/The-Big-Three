@@ -4,34 +4,39 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour {
     // Object components
     private Animator _animator;
-    private Mover _mover;
+    private Rigidbody2D _rb;
 
     // 'Cache' for storing user input
-    public Vector2 moveInput;
-    [SerializeField] private float movementSpeed = 3.0f;
+    [SerializeField]
+    private Vector2 _moveInput;
+    [SerializeField] private float _movementSpeed = 50.0f;
     private void Awake() {
         this._animator = this.GetComponent<Animator>();
-        this._mover = this.GetComponent<Mover>();
+        this._rb = this.GetComponent<Rigidbody2D>();
     }
 
-    private void Start() {
-        this._mover.Initialize(this.movementSpeed);
+    void Start(){
+        this._rb.useFullKinematicContacts = true;
     }
-
     // Update is called once per frame
     void FixedUpdate() {
         this.MovePlayer();
     }
 
+    public void MoveInDirection(Vector2 direction) {
+        Vector2 calculatedPosDiff = this._movementSpeed * direction.normalized * Time.fixedDeltaTime;
+        this._rb.linearVelocity = calculatedPosDiff;
+    }
+
     private void MovePlayer() {
-        Debug.Log(this.moveInput);
-        Debug.Log(this._mover);
-        this._mover.MoveInDirection(this.moveInput);
-        // Add animation check here
+        // Move Player
+        this.MoveInDirection(this._moveInput);
+
+        // Play Animation?
     }
 
     // Referenced by the Player Input to pass move commands
     public void MoveInput(InputAction.CallbackContext context) {
-        this.moveInput = context.ReadValue<Vector2>();
+        this._moveInput = context.ReadValue<Vector2>();
     }
 }

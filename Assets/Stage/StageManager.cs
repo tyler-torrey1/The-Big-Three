@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 /**
@@ -7,42 +6,36 @@ using UnityEngine;
  * It offers global world action
  */
 
-public class StageManager : MonoBehaviour
-{
+public class StageManager : MonoBehaviour {
     static StageManager instance;
 
     public List<Stage> stages;
     Stage currentStage;
 
-    void Awake()
-    {
-        if (instance == null)
-        {
+    void Awake() {
+        if (instance == null) {
             instance = this;
-        }
-        else if (instance != this)
-        {
-            Debug.LogError(name + ": singleton betrayal!");
+        } else if (instance != this) {
+            Debug.LogError(this.name + ": singleton betrayal!");
             return;
         }
     }
 
-    public static void ChangeStageTo(Stage nextStage, Direction from) => instance.ChangeStageToInstance(nextStage, from);
+    public static void ChangeStageTo(Stage nextStage, Direction from) {
+        instance.ChangeStageToInstance(nextStage, from);
+    }
 
-    /**
-     * Enter 
-     */
-    private void ChangeStageToInstance(Stage nextStage, Direction from)
-    {
-        if (currentStage != nextStage)
-        {
-            foreach (Stage stage in stages)
-            {
+    ///**
+    // * Enter 
+    // */
+    private void ChangeStageToInstance(Stage nextStage, Direction from) {
+        if (this.currentStage != nextStage) {
+            foreach (Stage stage in this.stages) {
                 stage.enabled = false;
             }
             nextStage.enabled = true;
         }
 
-        currentStage = nextStage;
+        this.currentStage = nextStage;
     }
 }

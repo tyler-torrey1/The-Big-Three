@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage : MonoBehaviour
-{
+public class Stage : MonoBehaviour {
     [SerializeField] private Door _northDoor;
     [SerializeField] private Door _southDoor;
     [SerializeField] private Door _eastDoor;
@@ -11,37 +9,27 @@ public class Stage : MonoBehaviour
 
     Dictionary<Direction, Door> doors;
 
-    private void Start()
-    {
-        doors = new Dictionary<Direction, Door>();
-        if (_northDoor != null) { doors[Direction.North] = _northDoor; }
-        if (_southDoor != null) { doors[Direction.South] = _southDoor; }
-        if (_eastDoor != null) { doors[Direction.East] = _eastDoor; }
-        if (_westDoor != null) { doors[Direction.West] = _westDoor; }
+    private void Start() {
+        this.doors = new Dictionary<Direction, Door>();
+        if (this._northDoor != null) { this.doors[Direction.North] = this._northDoor; }
+        if (this._southDoor != null) { this.doors[Direction.South] = this._southDoor; }
+        if (this._eastDoor != null) { this.doors[Direction.East] = this._eastDoor; }
+        if (this._westDoor != null) { this.doors[Direction.West] = this._westDoor; }
     }
 
-    public void Enter(PlayerMovement player, Direction from)
-    {
-        if (!doors.ContainsKey(from))
-        {
-            Debug.LogError(name + ": '" + from + "' not handled");
+
+    public void Enter(PlayerMovement player, Direction from) {
+        if (!this.doors.ContainsKey(from)) {
+            Debug.LogError(this.name + ": '" + from + "' not handled");
         }
 
-        player.transform.position = doors[from].entrance.position;
+        player.transform.position = this.doors[from].entrance;
     }
 }
 
-public enum Direction
-{
+public enum Direction {
     North,
     South,
     East,
     West
-}
-
-[Serializable]
-public class Door
-{
-    public Collider2D exit;
-    public Transform entrance;
 }
