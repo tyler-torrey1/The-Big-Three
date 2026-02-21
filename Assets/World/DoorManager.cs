@@ -65,15 +65,15 @@ public class DoorManager : MonoBehaviour {
 
             case Direction.South:
                 // This is the dumbest fucking shit
-                entrancePoint.y += playerRenderer.size.y / 1.5f;
+                entrancePoint.y += playerRenderer.size.y / 6f;
                 break;
 
             case Direction.East:
-                entrancePoint.x -= playerRenderer.size.x / 2f;
+                entrancePoint.x -= playerRenderer.size.x / 8f;
                 break;
 
             case Direction.West:
-                entrancePoint.x += playerRenderer.size.x / 2f;
+                entrancePoint.x += playerRenderer.size.x / 8f;
                 break;
         }
         return entrancePoint;

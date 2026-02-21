@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 16077763d32228c419383039023730bd
+guid: 7edb253f46246704ca4d58686de23b5c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4398124572708230450
-    second: PlayerIdleForwards_0
+      213: -2774579068741788895
+    second: PlayerIdleBackwards_0
+  - first:
+      213: -3744417091742843561
+    second: PlayerIdleBackwards_1
+  - first:
+      213: 1281307170623591120
+    second: PlayerIdleBackwards_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdleForwards_0
+      name: PlayerIdleBackwards_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 4
         y: 0
-        width: 170
-        height: 256
+        width: 23
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 235d0322ff6490d30800000000000000
-      internalID: 4398124572708230450
+      spriteID: 12b596e8907be79d0800000000000000
+      internalID: -2774579068741788895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerIdleBackwards_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d34cb6e78290cc0800000000000000
+      internalID: -3744417091742843561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerIdleBackwards_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 0
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d21e21451e18c110800000000000000
+      internalID: 1281307170623591120
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerIdleForwards_0: 4398124572708230450
+      PlayerIdleBackwards_0: -2774579068741788895
+      PlayerIdleBackwards_1: -3744417091742843561
+      PlayerIdleBackwards_2: 1281307170623591120
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

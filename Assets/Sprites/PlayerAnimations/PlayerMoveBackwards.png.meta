@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 16077763d32228c419383039023730bd
+guid: a2c8becab1872944b80b74f8c2a2e9e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4398124572708230450
-    second: PlayerIdleForwards_0
+      213: 2826338044401860809
+    second: PlayerMoveBackwards_0
+  - first:
+      213: 205241120241484273
+    second: PlayerMoveBackwards_1
+  - first:
+      213: -679774726415620099
+    second: PlayerMoveBackwards_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdleForwards_0
+      name: PlayerMoveBackwards_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 4
         y: 0
-        width: 170
-        height: 256
+        width: 23
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 235d0322ff6490d30800000000000000
-      internalID: 4398124572708230450
+      spriteID: 9c0cebf0a7b293720800000000000000
+      internalID: 2826338044401860809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveBackwards_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f10c4126b929d200800000000000000
+      internalID: 205241120241484273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveBackwards_2
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df765b8ec74f096f0800000000000000
+      internalID: -679774726415620099
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerIdleForwards_0: 4398124572708230450
+      PlayerMoveBackwards_0: 2826338044401860809
+      PlayerMoveBackwards_1: 205241120241484273
+      PlayerMoveBackwards_2: -679774726415620099
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
