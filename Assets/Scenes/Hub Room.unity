@@ -3181,7 +3181,7 @@ MonoBehaviour:
   exit: {fileID: 1973114449}
   entrance: {x: 0, y: 0}
   direction: 3
-  destination: {}
+  destination: Kitchen
 --- !u!1 &415072501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,11 +3229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de550ec297a67424091b453ebdbfe2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorManager
-  player: {fileID: 1549821234}
-  _northDoor: {fileID: 0}
-  _southDoor: {fileID: 0}
-  _eastDoor: {fileID: 0}
-  _westDoor: {fileID: 0}
 --- !u!1 &642175461
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,8 +3276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   player: {fileID: 0}
   scenes:
-  - {}
-  - {}
+  - 
+  - 
 --- !u!114 &642175464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3446,6 +3441,37 @@ Transform:
   - {fileID: 415072502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &991448650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991448651}
+  m_Layer: 0
+  m_Name: --------- Do Not Destroys ------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &991448651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991448650}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1062049661
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,7 +3598,7 @@ MonoBehaviour:
   exit: {fileID: 2107744342}
   entrance: {x: 0, y: 0}
   direction: 2
-  destination: {}
+  destination: Living Room
 --- !u!1 &1466039427
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3647,7 @@ MonoBehaviour:
   exit: {fileID: 1582709651}
   entrance: {x: 0, y: 0}
   direction: 0
-  destination: {}
+  destination: Bedroom
 --- !u!1 &1489673111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,6 +3741,7 @@ GameObject:
   - component: {fileID: 1549821237}
   - component: {fileID: 1549821236}
   - component: {fileID: 1549821241}
+  - component: {fileID: 1549821242}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4013,6 +4040,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b984224b8584f24f99894f262956738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLoad
+--- !u!95 &1549821242
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549821234}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3629e97824d33c443b24d9f0a69a1abb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1582709648
 GameObject:
   m_ObjectHideFlags: 0
@@ -4679,6 +4728,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 920251692}
-  - {fileID: 1549821235}
+  - {fileID: 991448651}
   - {fileID: 642175462}
+  - {fileID: 1549821235}
   - {fileID: 1595969929}

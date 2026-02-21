@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HubDoor : Door
 {
-    public Scene destination;
+    public string destination;
 
     protected override void HandleExitTriggered()
     {
