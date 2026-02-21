@@ -8,7 +8,7 @@ public class DoorCollider : MonoBehaviour {
     Rigidbody2D playerBody;
 
     [SerializeField]
-    DoorManager manager;
+    Stage manager;
     void Awake() {
         if (this.collider2D == null) {
             this.collider2D = this.GetComponent<BoxCollider2D>();

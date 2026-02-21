@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorManager : MonoBehaviour {
+public class Stage : MonoBehaviour {
     [SerializeField]
     private GameObject player;
 
@@ -41,15 +41,9 @@ public class DoorManager : MonoBehaviour {
     }
 
     private Vector2 getEntranceOffset(Door enteredDoor) {
-        Dictionary<Direction, Direction> oppositeDirs = new() {
-            [Direction.North] = Direction.South,
-            [Direction.South] = Direction.North,
-            [Direction.East] = Direction.West,
-            [Direction.West] = Direction.East
-        };
         //Debug.Log("EnteredDoor Name: " + enteredDoor.name);
         //Debug.Log("EnteredDoor Direction: " + enteredDoor.direction);
-        Door oppositeDoor = this._doors[oppositeDirs[enteredDoor.direction]];
+        Door oppositeDoor = this._doors[GlobalManager.GetOppositeDirection(enteredDoor.direction)];
         Vector2 entrancePoint = oppositeDoor.entrance;
 
         SpriteRenderer playerRenderer = this.player.GetComponent<SpriteRenderer>();
