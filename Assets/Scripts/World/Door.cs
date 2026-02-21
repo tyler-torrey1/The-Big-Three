@@ -56,7 +56,7 @@ public class Door : MonoBehaviour {
         this.entrance = entrancePos;
     }
 
-    private void HandleExitTriggered() {
+    protected virtual void HandleExitTriggered() {
         //Debug.Log("HandleExitTriggered");
         OnDoorEntered?.Invoke(this);
     }

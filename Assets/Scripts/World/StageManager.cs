@@ -6,7 +6,8 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
-    List<Stage> stages;
+    public List<Stage> stages;
+    public Stage currentStage;
 
     [SerializeField] private Door _northDoor;
     [SerializeField] private Door _southDoor;
@@ -39,12 +40,30 @@ public class StageManager : MonoBehaviour
     /**
      * Enter first stage of this scene
      */
-    public void EnterScene(Direction direction)
+    public void EnterScene(Direction fromDirection)
     {
-        Door oppositeDoor = this._doors[GlobalManager.GetOppositeDirection(direction)];
+        ChangeStageTo(stages[0], fromDirection);
+    }
+
+    private void ChangeStageTo(Stage nextStage, Direction entryDirection)
+    {
+        Door oppositeDoor = this._doors[entryDirection];
         HandleDoorEntered(oppositeDoor);
 
-        //SetStage(0);
+        // Disable all stages but the next
+        if (this.currentStage != nextStage)
+        {
+            foreach (Stage stage in stages)
+            {
+                stage.enabled = false;
+            }
+            nextStage.enabled = true;
+        }
+
+        // Move player to the corresponding entrance
+
+
+        this.currentStage = nextStage;
     }
 
     private void HandleDoorEntered(Door enteredDoor) {
