@@ -20,7 +20,13 @@ public class StageManager : MonoBehaviour {
             return;
         }
     }
-
+    void Start() {
+        List<Direction> LIVING_ROOM_CODE = new() {
+            Direction.North,
+            Direction.South,
+            Direction.West
+        };
+    }
     public static void ChangeStageTo(Stage nextStage, Direction from) {
         instance.ChangeStageToInstance(nextStage, from);
     }
