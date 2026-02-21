@@ -47,15 +47,12 @@ public class DoorManager : MonoBehaviour {
             [Direction.East] = Direction.West,
             [Direction.West] = Direction.East
         };
-        Debug.Log("EnteredDoor Name: " + enteredDoor.name);
-        Debug.Log("EnteredDoor Direction: " + enteredDoor.direction);
+        //Debug.Log("EnteredDoor Name: " + enteredDoor.name);
+        //Debug.Log("EnteredDoor Direction: " + enteredDoor.direction);
         Door oppositeDoor = this._doors[oppositeDirs[enteredDoor.direction]];
         Vector2 entrancePoint = oppositeDoor.entrance;
 
         SpriteRenderer playerRenderer = this.player.GetComponent<SpriteRenderer>();
-        Debug.Log("Opposite door: " + oppositeDoor.name);
-        Debug.Log("Opposite door entrance: " + oppositeDoor.entrance);
-        Debug.Log("Player Renderer height: " + playerRenderer.size.y);
         switch (oppositeDoor.direction) {
             case Direction.North:
                 // This is hacky. I actually no idea what position on the player object drives this, but I'm manually adjusting where he lands when he lands north, so he's closer to the door.
