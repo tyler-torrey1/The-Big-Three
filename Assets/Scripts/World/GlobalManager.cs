@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 /**
@@ -10,8 +11,9 @@ public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public PlayerMovement player;
-    public List<Stage> stages;
-    Stage currentStage;
+    public List<Scene> scenes; // e.g. living room, kitchen, bedroom
+    public Dictionary<Scene, StageManager> stageManagers;
+    Scene currentStage;
 
     void Awake()
     {
@@ -23,6 +25,28 @@ public class GlobalManager : MonoBehaviour {
         {
             Debug.LogError(this.name + ": singleton betrayal!");
             return;
+        }
+    }
+
+    private void Start()
+    {
+        // get corresponding StageManager per unity scene
+        stageManagers = new Dictionary<Scene, StageManager>();
+        foreach (Scene scene in scenes)
+        {
+            GameObject[] roots = scene.GetRootGameObjects();
+            StageManager stageManager = null;
+            foreach (GameObject root in roots)
+            {
+                {
+                    stageManager = root.GetComponent<StageManager>();
+                    if (stageManager != null)
+                    {
+                        break;
+                    }
+                }
+                stageManagers[scene] = stageManager;
+            }
         }
     }
 
@@ -44,19 +68,19 @@ public class GlobalManager : MonoBehaviour {
         }
     }
 
-    public static void ChangeStageTo(Stage nextStage, Direction from)
+    public static void ChangeStageTo(StageManager nextStage, Direction from)
     {
         instance.ChangeStageToInstance(nextStage, from);
     }
 
 
-    private void ChangeStageToInstance(Stage nextStage, Direction from)
+    private void ChangeStageToInstance(StageManager nextStage, Direction from)
     {
 
-        // Disable all stages but the next stage
+        // Disable all scenes but the next
         if (this.currentStage != nextStage)
         {
-            foreach (Stage stage in this.stages)
+            foreach (StageManager stage in this.scenes)
             {
                 stage.enabled = false;
             }
