@@ -3181,7 +3181,7 @@ MonoBehaviour:
   exit: {fileID: 1973114449}
   entrance: {x: 0, y: 0}
   direction: 3
-  destination: {}
+  destination: Kitchen
 --- !u!1 &415072501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,8 +3281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   player: {fileID: 0}
   scenes:
-  - {}
-  - {}
+  - 
+  - 
 --- !u!114 &642175464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3572,7 +3572,7 @@ MonoBehaviour:
   exit: {fileID: 2107744342}
   entrance: {x: 0, y: 0}
   direction: 2
-  destination: {}
+  destination: Living Room
 --- !u!1 &1466039427
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3621,7 @@ MonoBehaviour:
   exit: {fileID: 1582709651}
   entrance: {x: 0, y: 0}
   direction: 0
-  destination: {}
+  destination: Bedroom
 --- !u!1 &1489673111
 GameObject:
   m_ObjectHideFlags: 0

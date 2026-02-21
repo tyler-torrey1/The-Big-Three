@@ -11,9 +11,9 @@ public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public PlayerMovement player;
-    public List<Scene> scenes; // e.g. hub, living room, kitchen, bedroom
-    public Dictionary<Scene, StageManager> stageManagers;
-    Scene currentScene;
+    public List<string> scenes; // e.g. hub, living room, kitchen, bedroom
+    public Dictionary<string, StageManager> stageManagers;
+    string currentScene;
 
     void Awake()
     {
@@ -31,10 +31,10 @@ public class GlobalManager : MonoBehaviour {
     private void Start()
     {
         // get corresponding StageManager per unity scene
-        stageManagers = new Dictionary<Scene, StageManager>();
-        foreach (Scene scene in scenes)
+        stageManagers = new Dictionary<string, StageManager>();
+        foreach (string scene in scenes)
         {
-            GameObject[] roots = scene.GetRootGameObjects();
+            GameObject[] roots = SceneManager.GetSceneByName(scene).GetRootGameObjects();
             StageManager stageManager = null;
             foreach (GameObject root in roots)
             {
@@ -70,17 +70,17 @@ public class GlobalManager : MonoBehaviour {
         }
     }
 
-    public static void ChangeSceneTo(Scene nextScene, Direction from)
+    public static void ChangeSceneTo(string nextScene, Direction from)
     {
         instance.ChangeSceneToInstance(nextScene, from);
     }
 
 
-    private void ChangeSceneToInstance(Scene nextScene, Direction fromDirection)
+    private void ChangeSceneToInstance(string nextScene, Direction fromDirection)
     {
         if (this.currentScene != nextScene)
         {
-            SceneManager.LoadScene(nextScene.name, LoadSceneMode.Single);
+            SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
         }
 
         stageManagers[nextScene].EnterScene(GlobalManager.GetOppositeDirection(fromDirection));
