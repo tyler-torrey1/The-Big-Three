@@ -86,4 +86,10 @@ public class PlayerMovement : MonoBehaviour {
     public void MoveInput(InputAction.CallbackContext context) {
         this._moveInput = context.ReadValue<Vector2>();
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, transform.lossyScale);
+    }
 }

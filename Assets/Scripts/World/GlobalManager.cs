@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /**
  * This is a singleton object (only ever one).
@@ -9,9 +9,11 @@ using UnityEngine;
 
 public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
+    public static PlayerMovement player => instance._player;
 
-    public PlayerMovement player;
-    public List<string> scenes; // e.g. hub, living room, kitchen, bedroom
+    private PlayerMovement _player;
+
+    public List<string> sceneNames; // e.g. hub, living room, kitchen, bedroom
     public Dictionary<string, StageManager> stageManagers;
     string currentScene;
 
@@ -32,9 +34,15 @@ public class GlobalManager : MonoBehaviour {
     {
         // get corresponding StageManager per unity scene
         stageManagers = new Dictionary<string, StageManager>();
-        foreach (string scene in scenes)
+        foreach (string sceneName in sceneNames)
         {
-            GameObject[] roots = SceneManager.GetSceneByName(scene).GetRootGameObjects();
+            int index = SceneUtility.GetBuildIndexByScenePath(sceneName);
+            if (index == -1)
+            {
+                Debug.LogError("Scene '" + sceneName + "' is not a valid scene");
+                continue;
+            }
+            GameObject[] roots = SceneManager.GetSceneByName(sceneName).GetRootGameObjects();
             StageManager stageManager = null;
             foreach (GameObject root in roots)
             {
@@ -44,7 +52,7 @@ public class GlobalManager : MonoBehaviour {
                         break;
                     }
              
-                stageManagers[scene] = stageManager;
+                stageManagers[sceneName] = stageManager;
             }
         }
     }
@@ -78,6 +86,16 @@ public class GlobalManager : MonoBehaviour {
 
     private void ChangeSceneToInstance(string nextScene, Direction fromDirection)
     {
+
+        int index = SceneUtility.GetBuildIndexByScenePath(nextScene);
+        if (index == -1)
+        {
+            Debug.LogError("Scene '" + nextScene + "' is not a valid scene");
+            return;
+        }
+
+        Scene scene = SceneManager.GetSceneByName(nextScene);
+
         if (this.currentScene != nextScene)
         {
             SceneManager.LoadScene(nextScene, LoadSceneMode.Single);

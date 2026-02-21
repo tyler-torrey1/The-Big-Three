@@ -1,18 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject player;
-
     public List<Stage> stages;
-    public Stage currentStage;
+    public int currentStage;
 
     [SerializeField] private Door _northDoor;
     [SerializeField] private Door _southDoor;
     [SerializeField] private Door _eastDoor;
     [SerializeField] private Door _westDoor;
+
+    Direction[] solution;
+    int solutionCount = 3;
+
 
     private Dictionary<Direction, Door> _doors;
     private void Start() {
@@ -26,6 +28,13 @@ public class StageManager : MonoBehaviour
             Debug.Log("Setting door: " + door.name);
             door.OnDoorEntered += this.HandleDoorEntered;
         }
+
+        solution = new Direction[solutionCount];
+        for (int i = 0; i < solutionCount; i++)
+        {
+            solution[i] = (Direction) Random.Range(0, 4);
+        }
+        Debug.Log(SceneManager.GetActiveScene().name + ": solution=" + solution);
     }
 
     // Cleans up the event listeners
@@ -42,16 +51,16 @@ public class StageManager : MonoBehaviour
      */
     public void EnterScene(Direction fromDirection)
     {
-        ChangeStageTo(stages[0], fromDirection);
+        ChangeStageTo(stages[0], fromDirection, true);
     }
 
-    private void ChangeStageTo(Stage nextStage, Direction entryDirection)
+    private void ChangeStageTo(Stage nextStage, Direction entryDirection, bool fromHub)
     {
         Door oppositeDoor = this._doors[entryDirection];
         HandleDoorEntered(oppositeDoor);
 
         // Disable all stages but the next
-        if (this.currentStage != nextStage)
+        //if (this.currentStage != nextStage)
         {
             foreach (Stage stage in stages)
             {
@@ -63,14 +72,19 @@ public class StageManager : MonoBehaviour
         // Move player to the corresponding entrance
 
 
-        this.currentStage = nextStage;
+        //this.currentStage = nextStage;
     }
 
     private void HandleDoorEntered(Door enteredDoor) {
+
+        if (enteredDoor.direction == solution[currentStage])
+        {
+            // correct direction
+        }
         Vector2 spawnPos = this.getEntranceOffset(enteredDoor);
 
         Vector3 vector3SpawnPos = new(spawnPos.x, spawnPos.y, -5);
-        this.player.transform.position = spawnPos;
+        GlobalManager.player.transform.position = spawnPos;
     }
 
     private Vector2 getEntranceOffset(Door enteredDoor) {
@@ -79,7 +93,7 @@ public class StageManager : MonoBehaviour
         Door oppositeDoor = this._doors[GlobalManager.GetOppositeDirection(enteredDoor.direction)];
         Vector2 entrancePoint = oppositeDoor.entrance;
 
-        SpriteRenderer playerRenderer = this.player.GetComponent<SpriteRenderer>();
+        SpriteRenderer playerRenderer = GlobalManager.player.GetComponent<SpriteRenderer>();
         switch (oppositeDoor.direction) {
             case Direction.North:
                 // This is hacky. I actually no idea what position on the player object drives this, but I'm manually adjusting where he lands when he lands north, so he's closer to the door.
@@ -101,9 +115,5 @@ public class StageManager : MonoBehaviour
                 break;
         }
         return entrancePoint;
-    }
-    public void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(this.player.transform.localPosition, this.player.transform.localScale);
     }
 }

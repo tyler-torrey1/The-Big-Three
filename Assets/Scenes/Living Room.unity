@@ -3481,6 +3481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920251692}
   - component: {fileID: 920251691}
+  - component: {fileID: 920251693}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -3545,6 +3546,24 @@ Transform:
   - {fileID: 1411561778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920251693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920251690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5fcf1526a535f4f8990124c829a30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
+  stages: []
+  currentStage: {fileID: 0}
+  _northDoor: {fileID: 1466039429}
+  _southDoor: {fileID: 2032828599}
+  _eastDoor: {fileID: 1341237338}
+  _westDoor: {fileID: 337373055}
 --- !u!1 &1062049661
 GameObject:
   m_ObjectHideFlags: 0

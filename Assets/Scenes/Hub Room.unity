@@ -3191,7 +3191,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415072502}
-  - component: {fileID: 415072503}
   m_Layer: 0
   m_Name: Doors
   m_TagString: Untagged
@@ -3217,18 +3216,6 @@ Transform:
   - {fileID: 337373054}
   m_Father: {fileID: 920251692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &415072503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 415072501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de550ec297a67424091b453ebdbfe2b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorManager
 --- !u!1 &642175461
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,10 +3261,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b564a4b96b42ef749823b0f45f1693bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  player: {fileID: 0}
-  scenes:
-  - 
-  - 
+  sceneNames:
+  - Hub Room
+  - Living Room
+  - Bedroom
+  - Kitchen
 --- !u!114 &642175464
 MonoBehaviour:
   m_ObjectHideFlags: 0
