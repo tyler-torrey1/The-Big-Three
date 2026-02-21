@@ -11,9 +11,9 @@ public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public PlayerMovement player;
-    public List<Scene> scenes; // e.g. living room, kitchen, bedroom
+    public List<Scene> scenes; // e.g. hub, living room, kitchen, bedroom
     public Dictionary<Scene, StageManager> stageManagers;
-    Scene currentStage;
+    Scene currentScene;
 
     void Awake()
     {
@@ -38,18 +38,20 @@ public class GlobalManager : MonoBehaviour {
             StageManager stageManager = null;
             foreach (GameObject root in roots)
             {
-                {
                     stageManager = root.GetComponent<StageManager>();
                     if (stageManager != null)
                     {
                         break;
                     }
-                }
+             
                 stageManagers[scene] = stageManager;
             }
         }
     }
 
+    /**
+     * Helper for opposing cardinal direction.
+     */
     public static Direction GetOppositeDirection(Direction direction)
     {
         switch(direction)
@@ -68,29 +70,22 @@ public class GlobalManager : MonoBehaviour {
         }
     }
 
-    public static void ChangeStageTo(StageManager nextStage, Direction from)
+    public static void ChangeSceneTo(Scene nextScene, Direction from)
     {
-        instance.ChangeStageToInstance(nextStage, from);
+        instance.ChangeSceneToInstance(nextScene, from);
     }
 
 
-    private void ChangeStageToInstance(StageManager nextStage, Direction from)
+    private void ChangeSceneToInstance(Scene nextScene, Direction fromDirection)
     {
-
-        // Disable all scenes but the next
-        if (this.currentStage != nextStage)
+        if (this.currentScene != nextScene)
         {
-            foreach (StageManager stage in this.scenes)
-            {
-                stage.enabled = false;
-            }
-            nextStage.enabled = true;
+            SceneManager.LoadScene(nextScene.name, LoadSceneMode.Single);
         }
 
-        // Move player to the corresponding entrance
+        stageManagers[nextScene].EnterScene(GlobalManager.GetOppositeDirection(fromDirection));
 
-
-        this.currentStage = nextStage;
+        this.currentScene = nextScene;
     }
 
 }
