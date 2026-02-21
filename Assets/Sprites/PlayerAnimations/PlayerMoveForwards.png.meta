@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 16077763d32228c419383039023730bd
+guid: a598f5a4a1287504496d2a01b1b70ea8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4398124572708230450
-    second: PlayerIdleForwards_0
+      213: -6094107281099222117
+    second: PlayerMoveForwards_0
+  - first:
+      213: 5065160722045455694
+    second: PlayerMoveForwards_1
+  - first:
+      213: -6620856695022642622
+    second: PlayerMoveForwards_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdleForwards_0
+      name: PlayerMoveForwards_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 5
         y: 0
-        width: 170
-        height: 256
+        width: 23
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 235d0322ff6490d30800000000000000
-      internalID: 4398124572708230450
+      spriteID: b9395fe37b16d6ba0800000000000000
+      internalID: -6094107281099222117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveForwards_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4dc7cf17d01b4640800000000000000
+      internalID: 5065160722045455694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveForwards_2
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 0
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a98682aedfd14a0800000000000000
+      internalID: -6620856695022642622
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerIdleForwards_0: 4398124572708230450
+      PlayerMoveForwards_0: -6094107281099222117
+      PlayerMoveForwards_1: 5065160722045455694
+      PlayerMoveForwards_2: -6620856695022642622
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

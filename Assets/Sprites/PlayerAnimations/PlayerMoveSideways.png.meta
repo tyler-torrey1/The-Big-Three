@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 16077763d32228c419383039023730bd
+guid: aa0a27dc50a283c479a1c20cd2bd8a21
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4398124572708230450
-    second: PlayerIdleForwards_0
+      213: 7290852015873868364
+    second: PlayerMoveSideways_0
+  - first:
+      213: -4846127787157180038
+    second: PlayerMoveSideways_1
+  - first:
+      213: 308730809300039999
+    second: PlayerMoveSideways_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdleForwards_0
+      name: PlayerMoveSideways_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 8
         y: 0
-        width: 170
-        height: 256
+        width: 17
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 235d0322ff6490d30800000000000000
-      internalID: 4398124572708230450
+      spriteID: c424a14a74f4e2560800000000000000
+      internalID: 7290852015873868364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveSideways_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a71b85614781fbcb0800000000000000
+      internalID: -4846127787157180038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMoveSideways_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f393c8b0905d84400800000000000000
+      internalID: 308730809300039999
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerIdleForwards_0: 4398124572708230450
+      PlayerMoveSideways_0: 7290852015873868364
+      PlayerMoveSideways_1: -4846127787157180038
+      PlayerMoveSideways_2: 308730809300039999
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
