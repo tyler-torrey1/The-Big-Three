@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 /**
  * This is a singleton object (only ever one).
@@ -15,35 +15,45 @@ public class GlobalManager : MonoBehaviour {
     public Dictionary<Scene, StageManager> stageManagers;
     Scene currentStage;
 
-    void Awake() {
-        if (instance == null) {
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
-        } else if (instance != this) {
+        }
+        else if (instance != this)
+        {
             Debug.LogError(this.name + ": singleton betrayal!");
             return;
         }
     }
 
-    private void Start() {
+    private void Start()
+    {
         // get corresponding StageManager per unity scene
-        this.stageManagers = new Dictionary<Scene, StageManager>();
-        foreach (Scene scene in this.scenes) {
+        stageManagers = new Dictionary<Scene, StageManager>();
+        foreach (Scene scene in scenes)
+        {
             GameObject[] roots = scene.GetRootGameObjects();
             StageManager stageManager = null;
-            foreach (GameObject root in roots) {
+            foreach (GameObject root in roots)
+            {
                 {
                     stageManager = root.GetComponent<StageManager>();
-                    if (stageManager != null) {
+                    if (stageManager != null)
+                    {
                         break;
                     }
                 }
-                this.stageManagers[scene] = stageManager;
+                stageManagers[scene] = stageManager;
             }
         }
     }
 
-    public static Direction GetOppositeDirection(Direction direction) {
-        switch (direction) {
+    public static Direction GetOppositeDirection(Direction direction)
+    {
+        switch(direction)
+        {
             case Direction.North:
                 return Direction.South;
             case Direction.South:
@@ -58,31 +68,34 @@ public class GlobalManager : MonoBehaviour {
         }
     }
 
-    public static void ChangeStageTo(StageManager nextStage, Direction from) {
+    public static void ChangeStageTo(StageManager nextStage, Direction from)
+    {
         instance.ChangeStageToInstance(nextStage, from);
     }
 
 
-    private void ChangeStageToInstance(StageManager nextStage, Direction from) {
+    private void ChangeStageToInstance(StageManager nextStage, Direction from)
+    {
 
-        //// Disable all scenes but the next
-        //if (this.currentStage != nextStage)
-        //{
-        //    foreach (StageManager stage in this.scenes)
-        //    {
-        //        stage.enabled = false;
-        //    }
-        //    nextStage.enabled = true;
-        //}
+        // Disable all scenes but the next
+        if (this.currentStage != nextStage)
+        {
+            foreach (StageManager stage in this.scenes)
+            {
+                stage.enabled = false;
+            }
+            nextStage.enabled = true;
+        }
 
-        //// Move player to the corresponding entrance
+        // Move player to the corresponding entrance
 
 
-        //this.currentStage = nextStage;
+        this.currentStage = nextStage;
     }
 
 }
-public enum Direction {
+public enum Direction
+{
     North,
     South,
     East,

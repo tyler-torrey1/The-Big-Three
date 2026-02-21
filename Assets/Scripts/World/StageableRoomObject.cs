@@ -6,6 +6,8 @@ public class StageableRoomObject : MonoBehaviour {
     [SerializeField]
     private List<Sprite> _sprites;
 
+    public bool IsActive = false;
+
     [SerializeField]
     private int _maxStages;
     private int _maxStageIndex => this._maxStages - 1;
@@ -23,13 +25,7 @@ public class StageableRoomObject : MonoBehaviour {
         this._currentStageIndex = this._maxStages;
         this._spriteRenderer = this.GetComponent<SpriteRenderer>();
         this.SetCurrentStage(0);
-
-
-        StageManager stageManager = this.GetComponentInParent<StageManager>();
-        //stageManager.OnStageChanged += this.SetCurrentStage;
     }
-
-
 
     public void SetCurrentStage(int newStageIndex) {
         if (newStageIndex > this._maxStageIndex) { Debug.LogError("The new stage is equal to the max stage.."); return; }
