@@ -70,6 +70,7 @@ public class GlobalManager : MonoBehaviour {
 
         // Deactivate all but entered scene
         foreach (StageManager manager in this.stageManagers.Values) {
+            Debug.Log("Maybe deactivating: " + manager.name);
             manager.gameObject.SetActive(manager.name == nextScene);
         }
 

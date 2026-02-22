@@ -18,8 +18,10 @@ public class Door : MonoBehaviour {
                 Debug.LogError("Door " + this.gameObject.name + " is missing an ExitTrigger!");
             }
             this._exitTrigger = exitTrigger;
+
+            this._exitTrigger.OnPlayerEntered += this.HandleExitTriggered;
         }
-        this._exitTrigger.OnPlayerEntered += this.HandleExitTriggered;
+        this.PlaceEntrance();
     }
 
     private void OnDestroy() {
@@ -27,10 +29,7 @@ public class Door : MonoBehaviour {
             this._exitTrigger.OnPlayerEntered -= this.HandleExitTriggered;
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
-        this.PlaceEntrance();
-    }
+
     // An "Entrance" is basically a spawn point, with an offset from the door collider. Larger offset for vertical colliders.
     private void PlaceEntrance() {
         Bounds bounds = this.exit.bounds;

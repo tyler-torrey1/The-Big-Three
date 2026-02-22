@@ -26,7 +26,11 @@ public class StageableRoomObject : MonoBehaviour {
     void Awake() {
         this._currentStageIndex = this._maxStages;
         this._spriteRenderer = this.GetComponent<SpriteRenderer>();
-        this._stageManager = this.GetComponent<StageManager>();
+        this._stageManager = this.GetComponentInParent<StageManager>();
+
+    }
+
+    void Start() {
 
         this._stageManager.OnStageChanged += this.SetCurrentStage;
 

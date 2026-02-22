@@ -13,34 +13,33 @@ public class StageManager : MonoBehaviour {
     [SerializeField] private Door _westDoor;
 
     Direction[] solution;
-    int solutionCount = 3;
+    int solutionCount = 4;
 
     public event Action<int> OnStageChanged;
 
     private Dictionary<Direction, Door> _doors;
 
-    private void Start() {
+    private void Awake() {
         this._doors = new Dictionary<Direction, Door>();
         if (this._northDoor != null) { this._doors[Direction.North] = this._northDoor; }
         if (this._southDoor != null) { this._doors[Direction.South] = this._southDoor; }
         if (this._eastDoor != null) { this._doors[Direction.East] = this._eastDoor; }
         if (this._westDoor != null) { this._doors[Direction.West] = this._westDoor; }
 
+        this.RandomizeSolution();
+    }
+    private void Start() {
         foreach (Door door in this._doors.Values) {
             Debug.Log("Setting door: " + door.name);
             door.OnDoorEntered += this.HandleDoorEntered;
         }
-
-        RandomizeSolution();
     }
 
-    private void RandomizeSolution()
-    {
+    private void RandomizeSolution() {
         this.solution = new Direction[this.solutionCount];
-        for (int i = 0; i < this.solutionCount; i++)
-        {
+        for (int i = 0; i < this.solutionCount; i++) {
             this.solution[i] = (Direction)UnityEngine.Random.Range(0, 4);
-            Debug.Log(name + ": solution[" + i + "]=" + solution[i]);
+            Debug.Log(this.name + ": solution[" + i + "]=" + this.solution[i]);
         }
     }
 
@@ -57,21 +56,21 @@ public class StageManager : MonoBehaviour {
      * Enter first stage of this scene
      */
     public void EnterScene(Direction fromDirection) {
-        gameObject.SetActive (true);
-        this.currentStageIndex = -1;
+        this.gameObject.SetActive(true);
+        this.currentStageIndex = 0;
         this.ChangeStageTo(0, fromDirection);
     }
 
-    public void ExitScene()
-    {
-        gameObject.SetActive(false);
+    public void ExitScene() {
+        this.gameObject.SetActive(false);
     }
 
     private void ChangeStageTo(int nextStageIndex, Direction startDirection) {
         // Invoke, for the children
-        if (this.currentStageIndex != nextStageIndex) {
-            this.OnStageChanged?.Invoke(nextStageIndex);
-        }
+        //if (this.currentStageIndex != nextStageIndex) {
+        Debug.Log("Invoking for the children!");
+        this.OnStageChanged?.Invoke(nextStageIndex);
+        //}
 
         // Move player to the corresponding entrance
         Vector2 spawnPos = this.getEntranceOffset(startDirection);
@@ -86,7 +85,7 @@ public class StageManager : MonoBehaviour {
         Debug.Log("Entered Door '" + enteredDoor.name + "'");
         bool withinSolution = -1 < this.currentStageIndex && this.currentStageIndex < this.solutionCount;
 
-        int oldStageIndex = currentStageIndex;
+        int oldStageIndex = this.currentStageIndex;
         if (withinSolution && enteredDoor.direction == this.solution[this.currentStageIndex]) {
             // correct direction
             ++this.currentStageIndex;
@@ -94,12 +93,13 @@ public class StageManager : MonoBehaviour {
             // reset if wrong
             this.currentStageIndex = 0;
         }
-        Debug.Log(name + ": stage index " + oldStageIndex + " -> " + currentStageIndex + " (" + solutionCount + ")");
+        Debug.Log(this.name + ": stage index " + oldStageIndex + " -> " + this.currentStageIndex + " (" + this.solutionCount + ")");
 
         this.ChangeStageTo(this.currentStageIndex, GlobalManager.GetOppositeDirection(enteredDoor.direction));
     }
 
     private Vector2 getEntranceOffset(Direction spawnAt) {
+
         Door door = this._doors[spawnAt];
         Vector2 entrancePoint = door.entrance;
 
@@ -108,7 +108,7 @@ public class StageManager : MonoBehaviour {
         Debug.Log("Player Center: " + playerCenter);
         Debug.Log("Foot Bounds: " + footBounds);
 
-        float padding = 0.2f;
+        float padding = 0.3f;
 
         switch (door.direction) {
             case Direction.North:
