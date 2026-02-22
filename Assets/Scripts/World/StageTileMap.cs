@@ -17,10 +17,11 @@ public class StageTileMap : MonoBehaviour
     private void Awake()
     {
         tileMaps = GetComponentsInChildren<Tilemap>();
-
         stageManager = GetComponentInParent<StageManager>();
 
         stageManager.OnStageChanged += ChangeTilemap;
+
+        ChangeTilemap(0);
     }
 
     private void ChangeTilemap(int tilemapIndex)
