@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
     private Rigidbody2D _rb;
     new private BoxCollider2D collider;
-    public Bounds colliderBounds => collider.bounds;
+    public Bounds colliderBounds => this.collider.bounds;
 
     // 'Cache' for storing user input
     [SerializeField]
@@ -19,25 +19,24 @@ public class PlayerMovement : MonoBehaviour {
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
         this.animator = this.GetComponent<Animator>();
         this._rb = this.GetComponent<Rigidbody2D>();
-        inventory = GetComponent<Inventory>();
+        this.inventory = this.GetComponent<Inventory>();
     }
 
-    void Start(){
-        collider = GetComponent<BoxCollider2D>();
+    public void SetMoveInput(Vector2 dir) {
+        this._moveInput = dir;
+    }
+    void Start() {
+        this.collider = this.GetComponent<BoxCollider2D>();
     }
 
-    void Update()
-    {
+    void Update() {
         // get direction of player
-        
+
         // flip sprite based on horizontal movement
-        if (this._moveInput.x > 0)
-        {
-            spriteRenderer.flipX = false; 
-        }
-        else if (this._moveInput.x < 0)
-        {
-            spriteRenderer.flipX = true; 
+        if (this._moveInput.x > 0) {
+            this.spriteRenderer.flipX = false;
+        } else if (this._moveInput.x < 0) {
+            this.spriteRenderer.flipX = true;
         }
     }
 
@@ -55,33 +54,27 @@ public class PlayerMovement : MonoBehaviour {
         // Move Player
         this.MoveInDirection(this._moveInput);
 
-        if (this._moveInput.x != 0 || this._moveInput.y != 0)
-        {
-            animator.SetBool("isMoving", true);
-            if (this._moveInput.x != 0)
-            {
-                animator.SetBool("isSideways", true);
-                animator.SetBool("isForward", false);
-                animator.SetBool("isBackward", false);
+        if (this._moveInput.x != 0 || this._moveInput.y != 0) {
+            this.animator.SetBool("isMoving", true);
+            if (this._moveInput.x != 0) {
+                this.animator.SetBool("isSideways", true);
+                this.animator.SetBool("isForward", false);
+                this.animator.SetBool("isBackward", false);
             }
-            if (this._moveInput.y < 0)
-            {
-                animator.SetBool("isSideways", false);
-                animator.SetBool("isForward", true);
-                animator.SetBool("isBackward", false);
+            if (this._moveInput.y < 0) {
+                this.animator.SetBool("isSideways", false);
+                this.animator.SetBool("isForward", true);
+                this.animator.SetBool("isBackward", false);
             }
-            if (this._moveInput.y > 0)
-            {
-                animator.SetBool("isSideways", false);
-                animator.SetBool("isForward", false);
-                animator.SetBool("isBackward", true);
+            if (this._moveInput.y > 0) {
+                this.animator.SetBool("isSideways", false);
+                this.animator.SetBool("isForward", false);
+                this.animator.SetBool("isBackward", true);
             }
 
 
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
+        } else {
+            this.animator.SetBool("isMoving", false);
         }
 
     }
@@ -91,9 +84,8 @@ public class PlayerMovement : MonoBehaviour {
         this._moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnDrawGizmos()
-    {
+    public void OnDrawGizmos() {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, transform.lossyScale);
+        Gizmos.DrawWireCube(this.transform.position, this.transform.lossyScale);
     }
 }
