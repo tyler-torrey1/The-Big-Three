@@ -6,8 +6,8 @@ using UnityEngine;
  * It offers global world action
  */
 
-public class GlobalManager : MonoBehaviour
-{
+[DefaultExecutionOrder(-1)]
+public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public static PlayerMovement player => instance._player;
@@ -19,26 +19,20 @@ public class GlobalManager : MonoBehaviour
     string currentScene;
 
 
-    void Awake()
-    {
-        if (instance == null)
-        {
+    void Awake() {
+        if (instance == null) {
             instance = this;
-        }
-        else if (instance != this)
-        {
+        } else if (instance != this) {
             Debug.LogError(this.name + ": singleton betrayal!");
             return;
         }
     }
 
-    private void Start()
-    {
-        StageManager[] managers = roomsRoot.GetComponentsInChildren<StageManager>(true);
-        stageManagers = new Dictionary<string, StageManager>();
-        foreach (StageManager stageManager in managers)
-        {
-            stageManagers[stageManager.name] = stageManager;
+    private void Start() {
+        StageManager[] managers = this.roomsRoot.GetComponentsInChildren<StageManager>(true);
+        this.stageManagers = new Dictionary<string, StageManager>();
+        foreach (StageManager stageManager in managers) {
+            this.stageManagers[stageManager.name] = stageManager;
             stageManager.gameObject.SetActive(stageManager.name == "Hub");
         }
     }
@@ -46,10 +40,8 @@ public class GlobalManager : MonoBehaviour
     /**
      * Helper for opposing cardinal direction.
      */
-    public static Direction GetOppositeDirection(Direction direction)
-    {
-        switch(direction)
-        {
+    public static Direction GetOppositeDirection(Direction direction) {
+        switch (direction) {
             case Direction.North:
                 return Direction.South;
             case Direction.South:
@@ -64,38 +56,32 @@ public class GlobalManager : MonoBehaviour
         }
     }
 
-    public static void ChangeSceneTo(string nextScene, Direction from)
-    {
+    public static void ChangeSceneTo(string nextScene, Direction from) {
         instance.ChangeSceneToInstance(nextScene, from);
     }
 
 
-    private void ChangeSceneToInstance(string nextScene, Direction fromDirection)
-    {
+    private void ChangeSceneToInstance(string nextScene, Direction fromDirection) {
         // exist check
-        if (!stageManagers.ContainsKey(nextScene))
-        {
+        if (!this.stageManagers.ContainsKey(nextScene)) {
             Debug.LogError("No StageManager named '" + nextScene + "'");
             return;
         }
 
         // Deactivate all but entered scene
-        foreach (StageManager manager in stageManagers.Values)
-        {
+        foreach (StageManager manager in this.stageManagers.Values) {
             manager.gameObject.SetActive(manager.name == nextScene);
         }
 
-        if (this.currentScene != nextScene)
-        {
-            stageManagers[nextScene].EnterScene(fromDirection);
+        if (this.currentScene != nextScene) {
+            this.stageManagers[nextScene].EnterScene(fromDirection);
         }
 
         this.currentScene = nextScene;
     }
 }
 
-public enum Direction
-{
+public enum Direction {
     North,
     South,
     East,
