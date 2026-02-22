@@ -43,7 +43,7 @@ public class Item : MonoBehaviour {
 
 
 public enum ItemType {
-    Key,
+    Key = 0,
     Wallet,
     Phone
 }

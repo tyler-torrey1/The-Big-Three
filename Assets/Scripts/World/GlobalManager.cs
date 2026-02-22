@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +12,17 @@ public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public static PlayerMovement player => instance._player;
+    public static Inventory inventory  => player.inventory;
+    
+    public static event Action OnSceneChanged;
 
     [SerializeField] private GameObject roomsRoot;
     [SerializeField] private PlayerMovement _player;
 
     Dictionary<string, StageManager> stageManagers;
     string currentScene;
+
+    public event Action _OnSceneChanged;
 
 
     void Awake() {
@@ -67,6 +73,8 @@ public class GlobalManager : MonoBehaviour {
             Debug.LogError("No StageManager named '" + nextScene + "'");
             return;
         }
+
+        OnSceneChanged?.Invoke();
 
         // Deactivate all but entered scene
         foreach (StageManager manager in this.stageManagers.Values) {

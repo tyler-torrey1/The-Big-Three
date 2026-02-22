@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour {
     // Object components
     private SpriteRenderer spriteRenderer;
+    public Inventory inventory;
 
     private Animator animator;
     private Rigidbody2D _rb;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
         this.animator = this.GetComponent<Animator>();
         this._rb = this.GetComponent<Rigidbody2D>();
+        inventory = GetComponent<Inventory>();
     }
 
     void Start(){

@@ -4,27 +4,22 @@ using UnityEngine;
 public class Inventory : MonoBehaviour {
     public Action<ItemType> OnItemPickedUp;
 
-    [SerializeField]
-    bool hasKeys = false;
+    bool[] contains;
 
-    [SerializeField]
-    bool hasWallet = false;
+    private void Start()
+    {
+        contains = new bool[3];
+    }
 
-    [SerializeField]
-    bool hasPhone = false;
+    public bool Contains(ItemType item)
+    {
+        return contains[(int) item];
+    }
 
-    public bool PickupItem(Item item) {
-        switch (item.itemType) {
-            case ItemType.Key:
-                this.hasKeys = true;
-                break;
-            case ItemType.Wallet:
-                this.hasWallet = true;
-                break;
-            case ItemType.Phone:
-                this.hasPhone = true;
-                break;
-        }
+    public bool PickupItem(Item item)
+    {
+        contains[(int)item.itemType] = true;
+
         this.OnItemPickedUp?.Invoke(item.itemType);
         return true;
     }
