@@ -3738,8 +3738,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285861434}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46785, y: -0.76981, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3747,7 +3747,7 @@ Transform:
   - {fileID: 2030867273}
   - {fileID: 776908098}
   - {fileID: 1057497253}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 832435577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &295160847
 GameObject:
@@ -4921,11 +4921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b564a4b96b42ef749823b0f45f1693bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  hubWorld: {fileID: 920251690}
-  sceneNames:
-  - Living Room
-  - Kitchen
-  - Bedroom
+  roomsRoot: {fileID: 832435576}
+  _player: {fileID: 1549821239}
 --- !u!114 &642175464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5229,8 +5226,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713640824}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46785, y: -0.76981, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5238,7 +5235,7 @@ Transform:
   - {fileID: 1297841817}
   - {fileID: 695382756}
   - {fileID: 2003961972}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 832435577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722118464
 GameObject:
@@ -5283,8 +5280,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722118464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46785, y: -0.76981, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5292,7 +5289,7 @@ Transform:
   - {fileID: 1198683337}
   - {fileID: 452602895}
   - {fileID: 904601823}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 832435577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &738460243
 GameObject:
@@ -5796,6 +5793,41 @@ MonoBehaviour:
   IsActive: 1
   _maxStages: 4
   changeStage: 0
+--- !u!1 &832435576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832435577}
+  m_Layer: 0
+  m_Name: Rooms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &832435577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832435576}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.46785, y: -0.76981, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 920251692}
+  - {fileID: 722118466}
+  - {fileID: 713640827}
+  - {fileID: 285861436}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &835199683
 GameObject:
   m_ObjectHideFlags: 0
@@ -8903,6 +8935,7 @@ GameObject:
   - component: {fileID: 920251692}
   - component: {fileID: 920251691}
   - component: {fileID: 920251693}
+  - component: {fileID: 920251694}
   m_Layer: 0
   m_Name: Hub
   m_TagString: Untagged
@@ -8956,8 +8989,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920251690}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46785, y: -0.76981, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8965,7 +8998,7 @@ Transform:
   - {fileID: 2141294290}
   - {fileID: 415072502}
   - {fileID: 1837736513}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 832435577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &920251693
 Grid:
@@ -8979,6 +9012,24 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &920251694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920251690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5fcf1526a535f4f8990124c829a30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
+  stages: []
+  currentStageIndex: 0
+  _northDoor: {fileID: 0}
+  _southDoor: {fileID: 0}
+  _eastDoor: {fileID: 0}
+  _westDoor: {fileID: 0}
 --- !u!1 &921694559
 GameObject:
   m_ObjectHideFlags: 0
@@ -26086,10 +26137,7 @@ Rigidbody2D:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 920251692}
-  - {fileID: 722118466}
-  - {fileID: 713640827}
-  - {fileID: 285861436}
+  - {fileID: 832435577}
   - {fileID: 991448651}
   - {fileID: 642175462}
   - {fileID: 1549821235}
