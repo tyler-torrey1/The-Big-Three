@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /**
  * This is a singleton object (only ever one).
  * It offers global world action
  */
 
-public class GlobalManager : MonoBehaviour {
+public class GlobalManager : MonoBehaviour
+{
     static GlobalManager instance;
+
     public static PlayerMovement player => instance._player;
 
-    private PlayerMovement _player;
-    public GameObject hubWorld;
+    [SerializeField] private GameObject roomsRoot;
+    [SerializeField] private PlayerMovement _player;
 
-    public List<string> sceneNames; // e.g. hub, living room, kitchen, bedroom
     Dictionary<string, StageManager> stageManagers;
     string currentScene;
 
@@ -34,16 +34,14 @@ public class GlobalManager : MonoBehaviour {
 
     private void Start()
     {
-        // get corresponding StageManager per unity scene
+        StageManager[] managers = roomsRoot.GetComponentsInChildren<StageManager>(true);
         stageManagers = new Dictionary<string, StageManager>();
-
-        foreach (string sceneName in sceneNames)
+        foreach (StageManager stageManager in managers)
         {
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            stageManagers[stageManager.name] = stageManager;
+            stageManager.gameObject.SetActive(stageManager.name == "Hub");
         }
     }
-
-    public static void RegisterManager(string sceneName, StageManager manager) => instance.RegisterManagerInstance(sceneName, manager);
 
     /**
      * Helper for opposing cardinal direction.
@@ -74,28 +72,25 @@ public class GlobalManager : MonoBehaviour {
 
     private void ChangeSceneToInstance(string nextScene, Direction fromDirection)
     {
-        hubWorld.SetActive(nextScene == "Hub Room");
-
-        int index = SceneUtility.GetBuildIndexByScenePath(nextScene);
-        if (index == -1)
+        // exist check
+        if (!stageManagers.ContainsKey(nextScene))
         {
-            Debug.LogError("Scene '" + nextScene + "' is not a valid scene");
+            Debug.LogError("No StageManager named '" + nextScene + "'");
             return;
+        }
+
+        // Deactivate all but entered scene
+        foreach (StageManager manager in stageManagers.Values)
+        {
+            manager.gameObject.SetActive(manager.name == nextScene);
         }
 
         if (this.currentScene != nextScene)
         {
-            Scene scene = SceneManager.GetSceneByName(nextScene);
-            SceneManager.SetActiveScene(scene);
-
             stageManagers[nextScene].EnterScene(fromDirection);
         }
 
         this.currentScene = nextScene;
-    }
-    private void RegisterManagerInstance(string sceneName, StageManager manager)
-    {
-        stageManagers[sceneName] = manager;
     }
 }
 

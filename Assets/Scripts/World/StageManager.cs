@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour {
     public List<StageTileMap> stages;
@@ -33,9 +32,6 @@ public class StageManager : MonoBehaviour {
         }
 
         RandomizeSolution();
-        GlobalManager.RegisterManager(gameObject.scene.name, this);
-
-        gameObject.SetActive(false);
     }
 
     private void RandomizeSolution()
@@ -44,7 +40,7 @@ public class StageManager : MonoBehaviour {
         for (int i = 0; i < this.solutionCount; i++)
         {
             this.solution[i] = (Direction)UnityEngine.Random.Range(0, 4);
-            Debug.Log(SceneManager.GetActiveScene().name + ": solution[" + i + "]=" + solution[i]);
+            Debug.Log(name + ": solution[" + i + "]=" + solution[i]);
         }
     }
 
@@ -89,6 +85,8 @@ public class StageManager : MonoBehaviour {
     private void HandleDoorEntered(Door enteredDoor) {
         Debug.Log("Entered Door '" + enteredDoor.name + "'");
         bool withinSolution = -1 < this.currentStageIndex && this.currentStageIndex < this.solutionCount;
+
+        int oldStageIndex = currentStageIndex;
         if (withinSolution && enteredDoor.direction == this.solution[this.currentStageIndex]) {
             // correct direction
             ++this.currentStageIndex;
@@ -96,14 +94,14 @@ public class StageManager : MonoBehaviour {
             // reset if wrong
             this.currentStageIndex = 0;
         }
+        Debug.Log(name + ": stage index " + oldStageIndex + " -> " + currentStageIndex + " (" + solutionCount + ")");
+
         this.ChangeStageTo(this.currentStageIndex, GlobalManager.GetOppositeDirection(enteredDoor.direction));
     }
 
     private Vector2 getEntranceOffset(Direction spawnAt) {
         Door door = this._doors[spawnAt];
         Vector2 entrancePoint = door.entrance;
-
-        BoxCollider2D playerCollider = GlobalManager.player.GetComponent<BoxCollider2D>();
 
         Vector2 playerCenter = GlobalManager.player.transform.localPosition;
         Bounds footBounds = GlobalManager.player.colliderBounds;
