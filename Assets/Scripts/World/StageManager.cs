@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour {
     public event Action<int> OnStageChanged;
 
     private Dictionary<Direction, Door> _doors;
+
     private void Start() {
         this._doors = new Dictionary<Direction, Door>();
         if (this._northDoor != null) { this._doors[Direction.North] = this._northDoor; }
@@ -32,6 +33,9 @@ public class StageManager : MonoBehaviour {
         }
 
         RandomizeSolution();
+        GlobalManager.RegisterManager(gameObject.scene.name, this);
+
+        gameObject.SetActive(false);
     }
 
     private void RandomizeSolution()
@@ -57,8 +61,14 @@ public class StageManager : MonoBehaviour {
      * Enter first stage of this scene
      */
     public void EnterScene(Direction fromDirection) {
+        gameObject.SetActive (true);
         this.currentStageIndex = -1;
         this.ChangeStageTo(0, fromDirection);
+    }
+
+    public void ExitScene()
+    {
+        gameObject.SetActive(false);
     }
 
     private void ChangeStageTo(int nextStageIndex, Direction startDirection) {

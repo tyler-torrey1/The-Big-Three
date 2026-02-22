@@ -4921,10 +4921,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b564a4b96b42ef749823b0f45f1693bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
+  hubWorld: {fileID: 920251690}
   sceneNames:
-  - Hub Room
   - Living Room
   - Kitchen
+  - Bedroom
 --- !u!114 &642175464
 MonoBehaviour:
   m_ObjectHideFlags: 0

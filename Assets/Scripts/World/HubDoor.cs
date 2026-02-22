@@ -13,6 +13,6 @@ public class HubDoor : Door
             Debug.LogError(name + ": null destination");
             return;
         }
-        GlobalManager.ChangeSceneTo(destination, direction);
+        GlobalManager.ChangeSceneTo(destination, GlobalManager.GetOppositeDirection(direction));
     }
 }
