@@ -16,12 +16,11 @@ public class Inventory : MonoBehaviour {
         return contains[(int) item];
     }
 
-    public bool PickupItem(Item item)
+    public void PickupItem(Item item)
     {
         contains[(int)item.itemType] = true;
 
         this.OnItemPickedUp?.Invoke(item.itemType);
-        return true;
     }
 
 

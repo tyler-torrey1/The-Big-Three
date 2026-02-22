@@ -30,17 +30,22 @@ public class StageManager : MonoBehaviour {
     }
     private void Start() {
         foreach (Door door in this._doors.Values) {
-            Debug.Log("Setting door: " + door.name);
             door.OnDoorEntered += this.HandleDoorEntered;
         }
     }
 
     private void RandomizeSolution() {
         this.solution = new Direction[this.solutionCount];
+        string debugList = "";
         for (int i = 0; i < this.solutionCount; i++) {
             this.solution[i] = (Direction)UnityEngine.Random.Range(0, 4);
-            Debug.Log(this.name + ": solution[" + i + "]=" + this.solution[i]);
+            debugList += this.solution[i];
+            if (i < solutionCount - 1)
+            {
+                debugList += ", ";
+            }
         }
+        Debug.Log(name + " solution: " + debugList);
     }
 
     // Cleans up the event listeners
@@ -66,11 +71,7 @@ public class StageManager : MonoBehaviour {
     }
 
     private void ChangeStageTo(int nextStageIndex, Direction startDirection) {
-        // Invoke, for the children
-        //if (this.currentStageIndex != nextStageIndex) {
-        Debug.Log("Invoking for the children!");
         this.OnStageChanged?.Invoke(nextStageIndex);
-        //}
 
         // Move player to the corresponding entrance
         Vector2 spawnPos = this.getEntranceOffset(startDirection);
@@ -82,7 +83,6 @@ public class StageManager : MonoBehaviour {
      * Leaving the door via given door.
      */
     private void HandleDoorEntered(Door enteredDoor) {
-        Debug.Log("Entered Door '" + enteredDoor.name + "'");
         bool withinSolution = -1 < this.currentStageIndex && this.currentStageIndex < this.solutionCount;
 
         int oldStageIndex = this.currentStageIndex;
@@ -93,24 +93,25 @@ public class StageManager : MonoBehaviour {
             // reset if wrong
             this.currentStageIndex = 0;
         }
-        Debug.Log(this.name + ": stage index " + oldStageIndex + " -> " + this.currentStageIndex + " (" + this.solutionCount + ")");
+        Debug.Log(this.name + ": entered door "+ enteredDoor.direction + ", stage index " + oldStageIndex + " -> " + this.currentStageIndex + " (" + this.solutionCount + ")");
 
         this.ChangeStageTo(this.currentStageIndex, GlobalManager.GetOppositeDirection(enteredDoor.direction));
     }
 
     private Vector2 getEntranceOffset(Direction spawnAt) {
-
-        Door door = this._doors[spawnAt];
-        Vector2 entrancePoint = door?.entrance ?? Vector2.zero;
+        Vector2 entrancePoint = Vector2.zero;
+        if (_doors.ContainsKey(spawnAt))
+            {
+                Door door = this._doors[spawnAt];
+                entrancePoint = door.entrance;
+            }
 
         Vector2 playerCenter = GlobalManager.player.transform.localPosition;
         Bounds footBounds = GlobalManager.player.colliderBounds;
-        Debug.Log("Player Center: " + playerCenter);
-        Debug.Log("Foot Bounds: " + footBounds);
 
         float padding = 0.3f;
 
-        switch (door.direction) {
+        switch (spawnAt) {
             case Direction.North:
                 // We did it :)
                 entrancePoint.y += playerCenter.y - footBounds.min.y - padding;

@@ -11,6 +11,7 @@ public class Barricade : MonoBehaviour
     private void Awake()
     {
         GlobalManager.OnSceneChanged += RefreshActiveness;
+        gameObject.SetActive(false);
     }
 
     private void RefreshActiveness()

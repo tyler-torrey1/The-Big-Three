@@ -22,10 +22,8 @@ public class Item : MonoBehaviour {
     }
     public void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player") {
-            bool itemPickedUp = this._inventory.PickupItem(this);
-            if (itemPickedUp) {
-                Destroy(this.gameObject);
-            }
+            this._inventory.PickupItem(this);
+            Destroy(this.gameObject);
             GlobalManager.ChangeSceneTo("Hub", Direction.South);
         }
     }

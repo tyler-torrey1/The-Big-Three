@@ -28,11 +28,6 @@ public class StageTileMap : MonoBehaviour {
 
 
     private void ChangeTilemap(int stageIndex) {
-        Debug.Log("-----~-`~_~`~~~~~~~~~~" + this.stageManager.name);
-        //for (int i = 0; i < this.tileMaps.Length; i++) {
-        //    Tilemap tilemap = this.tileMaps[i];
-        //    tilemap.gameObject.SetActive(tilemapIndex == i);
-        //}
         this.tileMaps[0].gameObject.SetActive(stageIndex < 2);
         this.tileMaps[1].gameObject.SetActive(stageIndex >= 2);
     }
