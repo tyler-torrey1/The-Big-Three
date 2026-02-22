@@ -26,6 +26,7 @@ public class Item : MonoBehaviour {
             if (itemPickedUp) {
                 Destroy(this.gameObject);
             }
+            GlobalManager.ChangeSceneTo("Hub", Direction.South);
         }
     }
     public void SetCurrentStage(int newStageIndex) {

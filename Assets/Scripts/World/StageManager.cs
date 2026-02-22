@@ -101,7 +101,7 @@ public class StageManager : MonoBehaviour {
     private Vector2 getEntranceOffset(Direction spawnAt) {
 
         Door door = this._doors[spawnAt];
-        Vector2 entrancePoint = door.entrance;
+        Vector2 entrancePoint = door?.entrance ?? Vector2.zero;
 
         Vector2 playerCenter = GlobalManager.player.transform.localPosition;
         Bounds footBounds = GlobalManager.player.colliderBounds;
