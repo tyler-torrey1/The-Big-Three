@@ -9180,10 +9180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   stages: []
   currentStageIndex: 0
-  _northDoor: {fileID: 0}
+  _northDoor: {fileID: 1466039429}
   _southDoor: {fileID: 0}
-  _eastDoor: {fileID: 0}
-  _westDoor: {fileID: 0}
+  _eastDoor: {fileID: 1341237338}
+  _westDoor: {fileID: 337373055}
 --- !u!1 &921694559
 GameObject:
   m_ObjectHideFlags: 0
