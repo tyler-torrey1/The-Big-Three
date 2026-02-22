@@ -12,10 +12,12 @@ public class GlobalManager : MonoBehaviour {
     public static PlayerMovement player => instance._player;
 
     private PlayerMovement _player;
+    public GameObject hubWorld;
 
     public List<string> sceneNames; // e.g. hub, living room, kitchen, bedroom
-    public Dictionary<string, StageManager> stageManagers;
+    Dictionary<string, StageManager> stageManagers;
     string currentScene;
+
 
     void Awake()
     {
@@ -32,32 +34,16 @@ public class GlobalManager : MonoBehaviour {
 
     private void Start()
     {
-        // 
-
         // get corresponding StageManager per unity scene
         stageManagers = new Dictionary<string, StageManager>();
+
         foreach (string sceneName in sceneNames)
         {
-            int index = SceneUtility.GetBuildIndexByScenePath(sceneName);
-            if (index == -1)
-            {
-                Debug.LogError("Scene '" + sceneName + "' is not a valid scene");
-                continue;
-            }
-            GameObject[] roots = SceneManager.GetSceneByName(sceneName).GetRootGameObjects();
-            StageManager stageManager = null;
-            foreach (GameObject root in roots)
-            {
-                    stageManager = root.GetComponent<StageManager>();
-                    if (stageManager != null)
-                    {
-                        break;
-                    }
-             
-                stageManagers[sceneName] = stageManager;
-            }
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         }
     }
+
+    public static void RegisterManager(string sceneName, StageManager manager) => instance.RegisterManagerInstance(sceneName, manager);
 
     /**
      * Helper for opposing cardinal direction.
@@ -88,6 +74,7 @@ public class GlobalManager : MonoBehaviour {
 
     private void ChangeSceneToInstance(string nextScene, Direction fromDirection)
     {
+        hubWorld.SetActive(nextScene == "Hub Room");
 
         int index = SceneUtility.GetBuildIndexByScenePath(nextScene);
         if (index == -1)
@@ -96,19 +83,22 @@ public class GlobalManager : MonoBehaviour {
             return;
         }
 
-        Scene scene = SceneManager.GetSceneByName(nextScene);
-
         if (this.currentScene != nextScene)
         {
-            SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
-        }
+            Scene scene = SceneManager.GetSceneByName(nextScene);
+            SceneManager.SetActiveScene(scene);
 
-        stageManagers[nextScene].EnterScene(GlobalManager.GetOppositeDirection(fromDirection));
+            stageManagers[nextScene].EnterScene(fromDirection);
+        }
 
         this.currentScene = nextScene;
     }
-
+    private void RegisterManagerInstance(string sceneName, StageManager manager)
+    {
+        stageManagers[sceneName] = manager;
+    }
 }
+
 public enum Direction
 {
     North,
