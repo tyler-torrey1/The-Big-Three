@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 /**
  * This is a singleton object (only ever one).
@@ -12,12 +13,15 @@ public class GlobalManager : MonoBehaviour {
     static GlobalManager instance;
 
     public static PlayerMovement player => instance._player;
-    public static Inventory inventory  => player.inventory;
-    
+    public static Inventory inventory => player.inventory;
+    public static SpriteRenderer spriteRenderer => player.spriteRenderer;
+    public static TMPro.TextMeshPro finishText => instance._finishText;
+
     public static event Action OnSceneChanged;
 
     [SerializeField] private GameObject roomsRoot;
     [SerializeField] private PlayerMovement _player;
+    [SerializeField] private TMPro.TextMeshPro _finishText;
 
     Dictionary<string, StageManager> stageManagers;
     string currentScene;
@@ -86,6 +90,30 @@ public class GlobalManager : MonoBehaviour {
         }
 
         this.currentScene = nextScene;
+    }
+
+    public static IEnumerator FinishCoroutine()
+    {
+        float duration = 5f;
+        float elapsedSeconds = 0f;
+
+        do
+        {
+            float lifetimeLerp = Mathf.Clamp01(elapsedSeconds / duration);
+
+            // Fade player
+            Color color = player.spriteRenderer.color;
+            color = new Color(color.r, color.g, color.b, 1f - lifetimeLerp);
+            player.spriteRenderer.color = color;
+
+            // Fade in text
+            color = finishText.color;
+            color = new Color(color.r, color.g, color.b, lifetimeLerp);
+            finishText.color = color;
+
+            elapsedSeconds += Time.deltaTime;
+            yield return null;
+        } while (elapsedSeconds < duration);
     }
 }
 

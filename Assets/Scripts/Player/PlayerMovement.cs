@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
-    // Object components
-    private SpriteRenderer spriteRenderer;
-    public Inventory inventory;
 
-    private Animator animator;
-    private Rigidbody2D _rb;
-    new private BoxCollider2D collider;
+    // Object components
+    public Inventory inventory {  get; private set; }
+    public SpriteRenderer spriteRenderer { get; private set; }
+    public Animator animator { get; private set; }
+    public Rigidbody2D _rb { get; private set; }
+    new public BoxCollider2D collider { get; private set; }
     public Bounds colliderBounds => this.collider.bounds;
 
     // 'Cache' for storing user input
@@ -20,13 +20,11 @@ public class PlayerMovement : MonoBehaviour {
         this.animator = this.GetComponent<Animator>();
         this._rb = this.GetComponent<Rigidbody2D>();
         this.inventory = this.GetComponent<Inventory>();
+        this.collider = this.GetComponent<BoxCollider2D>();
     }
 
     public void SetMoveInput(Vector2 dir) {
         this._moveInput = dir;
-    }
-    void Start() {
-        this.collider = this.GetComponent<BoxCollider2D>();
     }
 
     void Update() {

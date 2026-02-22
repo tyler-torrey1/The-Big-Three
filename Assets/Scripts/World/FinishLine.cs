@@ -8,6 +8,7 @@ public class FinishLine : MonoBehaviour {
             playerInput.enabled = false;
             player.SetMoveInput(Vector2.down);
             Debug.Log("Going down");
+            StartCoroutine(GlobalManager.FinishCoroutine());
         }
     }
 }
