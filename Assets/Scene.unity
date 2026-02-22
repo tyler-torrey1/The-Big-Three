@@ -14660,6 +14660,7 @@ GameObject:
   - component: {fileID: 1549821236}
   - component: {fileID: 1549821241}
   - component: {fileID: 1549821242}
+  - component: {fileID: 1549821243}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -14980,6 +14981,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1549821243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549821234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847691e0ba609c54faebb9a079b6f35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  hasKeys: 0
+  hasWallet: 0
+  hasPhone: 0
 --- !u!1 &1570469139
 GameObject:
   m_ObjectHideFlags: 0
@@ -24658,6 +24674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8ecaa33a8b9c84bb926dd92bfaa9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  itemType: 0
 --- !u!212 &1837736515
 SpriteRenderer:
   serializedVersion: 2

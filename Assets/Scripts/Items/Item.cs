@@ -16,7 +16,7 @@ public class Item : MonoBehaviour {
         if (other.gameObject.tag == "Player") {
             bool itemPickedUp = this._inventory.PickupItem(this);
             if (itemPickedUp) {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
